@@ -2,10 +2,23 @@ import os,time
 from colorama import init, Fore, Style
 init()
 
+Lista_usuarios = {"Bertrand"}
+
 class Usuário:
-    def __init__ (self,nome,lista_livros_emprestados):
-        self.nome = nome
-        self.lista_livros_emprestados = lista_livros_emprestados
+    def __init__ (self,codigo_se_usuario_ou_nao):
+        nome_usuario = ""
+        self.codigo_se_usuario_ou_nao = codigo_se_usuario_ou_nao
+        if self.codigo_se_usuario_ou_nao == 1:
+            nome_usuario = input("Digite seu nome completo para conferirmos no banco de dados:\n")
+            if nome_usuario in Lista_usuarios:
+                os.system("cls")
+                print("Você de fato já possui cadastrado! Aproveite o sistema e boas leituras!!!")
+                time.sleep(3)
+            else:
+                self.codigo_se_usuario_ou_nao = input("Digite seu nome completo para lhe adicionarmos como usuário:")
+                Lista_usuarios[0] = self.codigo_se_usuario_ou_nao
+        
+              
 
 class Livros:
     def __init__ (self):
@@ -28,7 +41,6 @@ class Livros:
                 Emprestado_ou_nao = (Fore.GREEN + "Livro está disponível para empréstimo"+Style.RESET_ALL)
             print(f"\n{chave} - {valor["titulo"]} - {valor["autor"]} - {Emprestado_ou_nao}")
                 
-
     def Pegar_livro_emprestado(self,codigo):
         
         if self.livros[codigo]["emprestado"] == False:
@@ -52,9 +64,12 @@ class Livros:
         else:        
             print("Acho que houve um engano, este livro ainda está em nossa posse")
             time.sleep(3)
-        
-    
-           
+
+
+os.system("cls")
+usuario = Usuário(int(input("Seja bem vindo ao sistema da Bibliotca x!\n\n(1) Você já é um usuário cadastrado\n(2) Desejo criar meu usuário\n")))
+
+
 livro = Livros()
 livro.Adicionar_livros_a_biblioteca(0,"Pequeno Princípe","Antoine de Saint-Exupéry",True)
 livro.Adicionar_livros_a_biblioteca(1,"Apologia à Socrátes","Platão",False)
