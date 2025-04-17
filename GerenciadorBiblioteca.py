@@ -1,12 +1,15 @@
-import os,time
+import os,time,json
 from colorama import init, Fore, Style
 init()
 
-Lista_usuarios = {"Bertrand"}
+nome_usuario = ""
+idade = 0
+Lista_usuarios = {"nome":nome_usuario,
+                  "idade": idade
+                  }
 
 class Usuário:
     def __init__ (self,codigo_se_usuario_ou_nao):
-        nome_usuario = ""
         self.codigo_se_usuario_ou_nao = codigo_se_usuario_ou_nao
         if self.codigo_se_usuario_ou_nao == 1:
             nome_usuario = input("Digite seu nome completo para conferirmos no banco de dados:\n")
@@ -15,8 +18,12 @@ class Usuário:
                 print("Você de fato já possui cadastrado! Aproveite o sistema e boas leituras!!!")
                 time.sleep(3)
             else:
-                self.codigo_se_usuario_ou_nao = input("Digite seu nome completo para lhe adicionarmos como usuário:")
-                Lista_usuarios[0] = self.codigo_se_usuario_ou_nao
+                nome_usuario = input("Digite seu nome completo para lhe adicionarmos como usuário:")
+                #Lista_usuarios[0] = self.codigo_se_usuario_ou_nao
+                Lista_usuarios["nome"] = nome_usuario
+                with open("Teste.json", "w", encoding="utf-8") as arquivo:
+                    json.dump(Lista_usuarios, arquivo, indent=4, ensure_ascii=False)
+
         
               
 
